@@ -1,0 +1,22 @@
+FROM node:18-alpine
+
+# Diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia apenas os arquivos de dependências primeiro (cache mais eficiente)
+COPY package*.json ./
+
+# Instala dependências
+RUN npm install
+
+# Copia o restante do projeto
+COPY . .
+
+# Compila o projeto (necessário para produção)
+RUN npm run build
+
+# Porta padrão do Medusa
+EXPOSE 9000
+
+# Comando para iniciar o servidor
+CMD ["npm", "run", "start"]

@@ -1,7 +1,7 @@
 FROM node:latest
 
 # Diretório de trabalho dentro do container
-WORKDIR /app
+WORKDIR /app/Dsilva-store
 
 # Copia apenas os arquivos de dependências primeiro (cache mais eficiente)
 COPY package*.json ./

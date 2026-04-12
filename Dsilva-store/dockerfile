@@ -20,4 +20,10 @@ EXPOSE 9000
 
 # Comando para iniciar o servidor
 # CMD ["npm", "run", "start"]
-CMD sh -c "npx medusa migrations run && npx medusa seed && npm start"
+
+CMD sh -c "
+echo 'Running migrations...' &&
+npx medusa db:migrate || true &&
+echo 'Starting app...' &&
+npm start || sleep 999999
+"

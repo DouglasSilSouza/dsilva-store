@@ -19,4 +19,5 @@ RUN npm run build
 EXPOSE 9000
 
 # Comando para iniciar o servidor
-CMD ["npm", "run", "start"]
+# CMD ["npm", "run", "start"]
+CMD sh -c "npx medusa migrations run && npx medusa seed && npm start"

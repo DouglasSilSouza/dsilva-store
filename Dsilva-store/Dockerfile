@@ -42,6 +42,18 @@ RUN yarn build
 
 FROM node:23
 
+ARG COOKIE_SECRET
+ARG JWT_SECRET
+ARG STORE_CORS
+ARG ADMIN_CORS
+ARG AUTH_CORS
+ARG DISABLE_ADMIN
+ARG WORKER_MODE
+ARG PORT
+ARG DATABASE_URL
+ARG REDIS_URL
+ARG BACKEND_URL
+
 WORKDIR /app/Dsilva-store
 
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3

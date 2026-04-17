@@ -23,7 +23,7 @@
 
 FROM node:23 as builder
 
-WORKDIR /app/medusa
+WORKDIR /app/dsilva-store
 
 COPY . . 
 
@@ -53,9 +53,9 @@ ARG BACKEND_URL
 
 RUN echo "${PORT}"
 
-WORKDIR /app/medusa
+WORKDIR /app/dsilva-store
 
-RUN mkdir .medusa
+RUN mkdir .dsilva-store
 
 # COPY package*.json .yarnrc.yml yarn.lock ./ 
 
@@ -64,18 +64,18 @@ RUN mkdir .medusa
 
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
 
-COPY --from=builder /app/medusa/.medusa ./.medusa
+COPY --from=builder /app/dsilva-store/.dsilva-store ./.dsilva-store
 
-WORKDIR /app/medusa/.medusa/server
+WORKDIR /app/dsilva-store/.dsilva-store/server
 
 RUN yarn install --production
 
 
 # RUN medusa migrations run 
-COPY migrations.sh /app/medusa/.medusa/server/migrations.sh
-RUN chmod +x /app/medusa/.medusa/server/migrations.sh
-RUN /app/medusa/.medusa/server/migrations.sh
+COPY migrations.sh /app/dsilva-store/.dsilva-store/server/migrations.sh
+RUN chmod +x /app/dsilva-store/.dsilva-store/server/migrations.sh
+RUN /app/dsilva-store/.dsilva-store/server/migrations.sh
 
-RUN rm /app/medusa/.medusa/server/migrations.sh
+RUN rm /app/dsilva-store/.dsilva-store/server/migrations.sh
 
 CMD ["yarn", "run", "start"]

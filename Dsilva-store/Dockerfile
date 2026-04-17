@@ -33,6 +33,8 @@ RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
 
 RUN corepack enable
 
+RUN corepack prepare yarn@1.22.22 --activate
+
 RUN yarn install --loglevel=error
 
 RUN yarn build

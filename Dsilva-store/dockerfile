@@ -23,7 +23,7 @@
 
 FROM node:23 as builder
 
-WORKDIR /app/dsilva-store
+WORKDIR /app/Dsilva-store
 
 COPY . . 
 
@@ -53,7 +53,7 @@ ARG BACKEND_URL
 
 RUN echo "${PORT}"
 
-WORKDIR /app/dsilva-store
+WORKDIR /app/Dsilva-store
 
 RUN mkdir .dsilva-store
 
@@ -64,18 +64,18 @@ RUN mkdir .dsilva-store
 
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
 
-COPY --from=builder /app/dsilva-store/.dsilva-store ./.dsilva-store
+COPY --from=builder /app/Dsilva-store/.dsilva-store ./.dsilva-store
 
-WORKDIR /app/dsilva-store/.dsilva-store/server
+WORKDIR /app/Dsilva-store/.dsilva-store/server
 
 RUN yarn install --production
 
 
 # RUN medusa migrations run 
-COPY migrations.sh /app/dsilva-store/.dsilva-store/server/migrations.sh
-RUN chmod +x /app/dsilva-store/.dsilva-store/server/migrations.sh
-RUN /app/dsilva-store/.dsilva-store/server/migrations.sh
+COPY migrations.sh /app/Dsilva-store/.dsilva-store/server/migrations.sh
+RUN chmod +x /app/Dsilva-store/.dsilva-store/server/migrations.sh
+RUN /app/Dsilva-store/.dsilva-store/server/migrations.sh
 
-RUN rm /app/dsilva-store/.dsilva-store/server/migrations.sh
+RUN rm /app/Dsilva-store/.dsilva-store/server/migrations.sh
 
 CMD ["yarn", "run", "start"]

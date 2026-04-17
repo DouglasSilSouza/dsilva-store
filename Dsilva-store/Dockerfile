@@ -21,48 +21,32 @@
 # # Comando para iniciar o servidor
 # CMD ["npm", "run", "start"]
 
-FROM node:23 as builder
+FROM node:23 AS builder
 
 WORKDIR /app/Dsilva-store
 
-COPY . . 
+COPY . .
 
 RUN rm -rf node_modules
 
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
 
+RUN corepack enable
+
 RUN yarn install --loglevel=error
 
-RUN yarn run build
+RUN yarn build
 
 
 FROM node:23
 
-# Bug https://github.com/coollabsio/coolify/issues/1930
-ARG COOKIE_SECRET
-ARG JWT_SECRET
-ARG STORE_CORS
-ARG ADMIN_CORS
-ARG AUTH_CORS
-ARG DISABLE_ADMIN
-ARG WORKER_MODE
-ARG PORT
-ARG DATABASE_URL
-ARG REDIS_URL
-ARG BACKEND_URL
-
-RUN echo "${PORT}"
-
 WORKDIR /app/Dsilva-store
 
-RUN mkdir .medusa
-
-# COPY package*.json .yarnrc.yml yarn.lock ./ 
-
-# COPY medusa-config.ts .
-# COPY tsconfig.json .
-
 RUN apt-get update && apt-get install -y python3 python3-pip python-is-python3
+
+RUN corepack enable
+
+RUN mkdir .medusa
 
 COPY --from=builder /app/Dsilva-store/.medusa ./.medusa
 
@@ -70,12 +54,4 @@ WORKDIR /app/Dsilva-store/.medusa/server
 
 RUN yarn install --production
 
-
-# RUN medusa migrations run 
-COPY migrations.sh /app/Dsilva-store/.medusa/server/migrations.sh
-RUN chmod +x /app/Dsilva-store/.medusa/server/migrations.sh
-RUN /app/Dsilva-store/.medusa/server/migrations.sh
-
-RUN rm /app/Dsilva-store/.medusa/server/migrations.sh
-
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "start"]

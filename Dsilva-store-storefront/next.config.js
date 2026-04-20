@@ -55,8 +55,8 @@ const nextConfig = {
             },
             {
               protocol: "http",
-              hostname: "admin-gs6piuevx2nuff30r10llcgr.72.62.111.111.sslip.io",
-              pathname: "/medusa-files/**",
+              hostname: S3_HOSTNAME,
+              pathname: S3_PATHNAME,
             }
           ]
         : []),

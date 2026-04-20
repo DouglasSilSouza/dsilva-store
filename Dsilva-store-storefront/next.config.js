@@ -43,8 +43,8 @@ const nextConfig = {
         hostname: "medusa-server-testing.s3.us-east-1.amazonaws.com",
       },
       {
-        protocol: "https",
-        hostname: "web-storage.dsilvamoda.cloud",
+        protocol: "http",
+        hostname: "admin-gs6piuevx2nuff30r10llcgr.72.62.111.111.sslip.io",
       },
       ...(S3_HOSTNAME && S3_PATHNAME
         ? [
@@ -54,8 +54,8 @@ const nextConfig = {
               pathname: S3_PATHNAME,
             },
             {
-              protocol: "https",
-              hostname: "web-storage.dsilvamoda.cloud",
+              protocol: "http",
+              hostname: "admin-gs6piuevx2nuff30r10llcgr.72.62.111.111.sslip.io",
               pathname: "/medusa-files/**",
             }
           ]
